@@ -298,7 +298,6 @@ export default function LessonPage() {
   const [lessonContent, setLessonContent] = useState<LessonContent | null>(null);
 
   useEffect(() => {
-    // Имитация загрузки данных
     const lesson = lessonsData.find(l => l.id === lessonId);
     if (lesson) {
       setLessonContent(lesson);

@@ -17,7 +17,7 @@ interface ShopItem {
 
 export default function Shop() {
   const { toast } = useToast()
-  const [userCoins, setUserCoins] = useState(100) // Assume the user starts with 500 coins
+  const [userCoins, setUserCoins] = useState(100) 
   const router = useRouter()
 
   const shopItems: ShopItem[] = [

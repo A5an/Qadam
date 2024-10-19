@@ -7,7 +7,6 @@ const videos = [
   { id: 1, src: '/videos/video1.mp4', likes: 0 },
   { id: 2, src: '/videos/video2.mp4', likes: 0 },
   { id: 3, src: '/videos/video3.mp4', likes: 0 },
-  // Add more video objects as needed
 ];
 
 const VideoPage = () => {
@@ -15,7 +14,6 @@ const VideoPage = () => {
   const navigate = useNavigate();
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  // Handle the case where id might be undefined
   const videoId = id ? parseInt(id, 10) : null;
   const video = videos.find(v => v.id === videoId);
 
@@ -23,16 +21,16 @@ const VideoPage = () => {
 
   useEffect(() => {
     if (!video) {
-      navigate('/'); // Redirect to home if video is not found
+      navigate('/'); 
     } else if (videoRef.current) {
-      videoRef.current.play(); // Start playing the video when the component mounts
+      videoRef.current.play(); 
     }
   }, [video, navigate]);
 
   useEffect(() => {
     if (videoRef.current) {
-      videoRef.current.load(); // Load the new video source
-      videoRef.current.play(); // Start playing the new video
+      videoRef.current.load();  
+      videoRef.current.play(); 
     }
   }, [id]);
 

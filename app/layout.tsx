@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
-import BottomNav from "./components/bottom-nav";
+import ClientLayout from "./components/client-layout";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -31,8 +31,7 @@ export default function RootLayout({
       <Script src="https://telegram.org/js/telegram-web-app.js" strategy="beforeInteractive"></Script>
     </head>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-        <BottomNav/>
+      <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );

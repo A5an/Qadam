@@ -8,9 +8,16 @@ import useNavigation from '../hook/use-navigation';
 import useScrollingEffect from '../hook/use-scroll';
 import { Icon } from '@iconify/react';
 
-const BottomNav = () => {
-  const scrollDirection = useScrollingEffect(); // Use the custom hook
-  const navClass = scrollDirection === 'up' ? '' : 'opacity-25 duration-500';
+interface BottomNavProps {
+  isLoopsPage: boolean;
+}
+
+const BottomNav: React.FC<BottomNavProps> = ({ isLoopsPage }) => {
+  const scrollDirection = useScrollingEffect(); 
+  let navClass = ''; 
+  if (!isLoopsPage){ 
+  navClass = scrollDirection === 'up' ? '' : 'opacity-25 duration-500';
+  }
 
   const {
     isHomeActive,
@@ -22,7 +29,9 @@ const BottomNav = () => {
 
   return (
     <div
-      className={`fixed bottom-0 w-full py-4 z-50 bg-zinc-100 dark:bg-zinc-950 border-t dark:border-zinc-800 border-zinc-200 shadow-lg ${navClass}`}
+    className={`fixed bottom-0 w-full py-4 z-50 shadow-lg ${navClass} ${
+      isLoopsPage ? '' : 'bg-zinc-100 dark:bg-zinc-950 border-t dark:border-zinc-800 border-zinc-200'
+    }`}
     >
       <div className="flex flex-row justify-around items-center bg-transparent w-full">
         <Link href="/" className="flex items-center relative">
@@ -52,8 +61,8 @@ const BottomNav = () => {
           )}
         </Link>
         <Link onClick={(e) => {
-            e.preventDefault(); // Prevent the default link behavior
-            window.location.href = "/loops/1"; // Force the page to reload
+            e.preventDefault(); 
+            window.location.href = "/loops/1"; 
           }}
           href="/loops/1" 
           className="flex items-center">

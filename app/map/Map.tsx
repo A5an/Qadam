@@ -64,7 +64,7 @@ function getRandomCoordinates(
 ): [number, number] {
   const y0 = center[0];
   const x0 = center[1];
-  const rd = radius / 111300; // Convert radius from meters to degrees
+  const rd = radius / 111300;  
 
   const u = Math.random();
   const v = Math.random();
@@ -140,7 +140,7 @@ function Map() {
       setTimeout(() => {
         setModalIsOpen(false);
         setSelectedMarker(null);
-      }, 2000); // Close the modal after 2 seconds
+      }, 2000); 
     } else {
       alert("Не правильно! Попробуйте еще раз.");
     }
@@ -207,7 +207,7 @@ function Map() {
                 </Marker>
                 <Circle
                   center={position}
-                  radius={500} // Adjust the radius as needed
+                  radius={500} 
                   pathOptions={{
                     color: "blue",
                     fillColor: "blue",
@@ -248,13 +248,13 @@ function Map() {
                 value={userAnswer}
                 onChange={(e) => setUserAnswer(e.target.value)}
                 disabled={isSuccess}
-                style={{ width: '100%', padding: '8px', margin: '8px 0' }} // Add consistent styles
+                style={{ width: '100%', padding: '8px', margin: '8px 0' }} 
               />
               <Button
                 onClick={handleSubmit}
                 disabled={isSuccess}
                 variant="default"
-                style={{ width: '100%', marginTop: '8px', borderRadius: '8px' }} // Add consistent styles
+                style={{ width: '100%', marginTop: '8px', borderRadius: '8px' }} 
               >
                 Submit
               </Button>

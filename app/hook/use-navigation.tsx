@@ -37,7 +37,6 @@ const useNavigation = () => {
         setIsMapActive(true);
         break;
       default:
-        // Handle any other cases here
         break;
     }
   }, [pathname]);
