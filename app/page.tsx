@@ -1,5 +1,4 @@
 'use client'
-
 import { useState, useEffect } from "react"
 import WebApp from "@twa-dev/sdk"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -22,13 +21,16 @@ export default function Home() {
   const [coins] = useState(500)
 
   useEffect(() => {
+    // Force dark theme
+    document.documentElement.classList.add('dark')
+    
     if (WebApp.initDataUnsafe.user && typeof window !== "undefined" && typeof window !== undefined) {
       setUserData(WebApp.initDataUnsafe.user as UserData)
     }
   }, [])
 
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground">
+    <div className="min-h-screen flex flex-col bg-background text-foreground dark">
       <header className="p-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">Ваше обучение</h1>
         <div className="flex space-x-2">
