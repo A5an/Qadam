@@ -48,9 +48,9 @@ export default function Home() {
     { id: 7, name: "Дискретная математика", progress: 100, total: 500 },
   ]
 
-  const handleCardClick = (id: number) => {
+  const handleCardClick = (id: number, name: string) => {
     setActiveCard(activeCard === id ? null : id)
-    router.push(`/subjects/${id}`)
+    router.push(`/subjects/${id}?name=${encodeURIComponent(name)}`)
   }
 
   useEffect(() => {
@@ -97,7 +97,7 @@ export default function Home() {
               style={{
                 transform: activeCard === subject.id ? 'translateY(-4px)' : 'none',
               }}
-              onClick={() => handleCardClick(subject.id)}
+              onClick={() => handleCardClick(subject.id, subject.name)}
             >
               <CardHeader>
                 <CardTitle>{subject.name}</CardTitle>
