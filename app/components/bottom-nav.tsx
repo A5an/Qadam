@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import React from 'react';
+import React from "react";
 
-import Link from 'next/link';
+import Link from "next/link";
 
-import useNavigation from '../hook/use-navigation';
-import useScrollingEffect from '../hook/use-scroll';
-import { Icon } from '@iconify/react';
+import useNavigation from "../hook/use-navigation";
+import useScrollingEffect from "../hook/use-scroll";
+import { Icon } from "@iconify/react";
 
 const BottomNav = () => {
   const scrollDirection = useScrollingEffect(); // Use the custom hook
-  const navClass = scrollDirection === 'up' ? '' : 'opacity-25 duration-500';
+  const navClass = scrollDirection === "up" ? "" : "opacity-25 duration-500";
 
   const {
     isHomeActive,
@@ -27,7 +27,12 @@ const BottomNav = () => {
       <div className="flex flex-row justify-around items-center bg-transparent w-full">
         <Link href="/" className="flex items-center relative">
           {isHomeActive ? (
-            <Icon icon="mdi:learn-outline" width="32" height="32" className="stroke-current stroke-505" />
+            <Icon
+              icon="mdi:learn-outline"
+              width="32"
+              height="32"
+              className="stroke-current stroke-505"
+            />
           ) : (
             <Icon icon="mdi:learn-outline" width="32" height="32" />
           )}
@@ -46,21 +51,38 @@ const BottomNav = () => {
         </Link>
         <Link href="/map" className="flex items-center">
           {isMapActive ? (
-            <Icon icon="mdi:map-outline" width="32" height="32" className="stroke-current stroke-5" />
+            <Icon
+              icon="mdi:map-outline"
+              width="32"
+              height="32"
+              className="stroke-current stroke-5"
+            />
           ) : (
             <Icon icon="mdi:map-outline" width="32" height="32" />
           )}
         </Link>
-        <Link href="/loops" className="flex items-center">
+        <Link
+          onClick={(e) => {
+            e.preventDefault(); // Prevent the default link behavior
+            window.location.href = "/loops/1"; // Force the page to reload
+          }}
+          href="/loops/1"
+          className="flex items-center"
+        >
           {isNotificationsActive ? (
-            <Icon icon="ri:infinity-fill" width="32" height="32" className="stroke-current stroke-5" />
+            <Icon
+              icon="ri:infinity-fill"
+              width="32"
+              height="32"
+              className="stroke-current stroke-5"
+            />
           ) : (
             <Icon icon="ri:infinity-line" width="32" height="32" />
           )}
         </Link>
         <Link href="/profile" className="flex items-center">
           {isProfileActive ? (
-            <Icon icon="iconamoon:profile-fill" width="32" height="32"/>
+            <Icon icon="iconamoon:profile-fill" width="32" height="32" />
           ) : (
             <Icon icon="iconamoon:profile-duotone" width="32" height="32" />
           )}
