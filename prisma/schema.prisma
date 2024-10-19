@@ -105,6 +105,19 @@ model Lesson {
   course         Course          @relation(fields: [courseId], references: [id], onDelete: Cascade)
   courseId       String
   lessonComments LessonComment[]
+  tasks          Task[]
+}
+
+model Task {
+  id           String   @id @default(uuid())
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  title        String
+  question     String?
+  answer       String?
+  wrongAnswers String[]
+  lesson       Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  lessonId     String
 }
 
 enum UserRole {
