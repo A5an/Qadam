@@ -58,33 +58,27 @@ export default function Home() {
   const createOrUpdateUser = async (userData: UserData) => {
     try {
       const user = await prisma.user.upsert({
-        where: { id: userData.id.toString() },
+        where: { chatId: userData.id.toString() },
         update: {
           firstName: userData.first_name,
           lastName: userData.last_name,
           username: userData.username,
-          // We don't have email in UserData, so we'll use username as a placeholder
-          email: userData.username ? `${userData.username}@example.com` : undefined,
-          // Set other fields as needed
           isNew: false,
-          role: 'USER' as const,
-          // You might want to set level, tokens, etc. based on your app's logic
+          role: 'USER'  
         },
         create: {
-          id: userData.id.toString(),
+          chatId: userData.id.toString(),
           firstName: userData.first_name,
           lastName: userData.last_name,
           username: userData.username,
-          email: userData.username ? `${userData.username}@example.com` : undefined,
           isNew: true,
-          role: 'USER' as const,
-          // Set other fields as needed
-        },
+          role: 'USER'
+        }
       })
-      console.log('User created or updated:', user)
-    } catch (error) {
-      console.error('Error creating or updating user:', error)
-    }
+      console.log('User created:', user)
+     } catch (error) {
+      console.error('Error:', error)
+     }
   }
 
   useEffect(() => {
