@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Zap } from "lucide-react"
 import Image from 'next/image'
+import prisma from '@/lib/prisma'
 
 interface UserData {
   id: number
@@ -128,6 +129,7 @@ export default function Home() {
                 <p>Username: {userData.username}</p>
                 <p>Language: {userData.language_code}</p>
                 <p>Premium: {userData.is_premium ? 'Yes' : 'No'}</p>
+                <p>{userData.id}</p>
               </CardContent>
             </Card>
           </div>
