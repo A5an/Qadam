@@ -23,7 +23,7 @@ function MapPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground dark">
       <header className="p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold">Knowledge Drops</h1>
+        <h1 className="text-xl font-bold">Knowledge Drops</h1>
         <div className="flex space-x-2 items-center">
     <div className=" mt-3 flex items-center">
       <Button variant="outline" size="default">
