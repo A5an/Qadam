@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 import { Button, Link as NextUILink } from "@nextui-org/react";
 
@@ -11,7 +10,6 @@ export const metadata = {
 };
 
 export default function Error() {
-  const router = useRouter();
 
   return (
     <section className="mx-auto xl:w-[70%] lg:w-[80%] sm:w-[85%] w-[90%] py-6 min-h-[59vh]">
