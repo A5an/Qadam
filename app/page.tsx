@@ -18,8 +18,8 @@ interface UserData {
 
 export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null)
-  const [energy, setEnergy] = useState(100)
-  const [coins, setCoins] = useState(500)
+  const [energy] = useState(100)
+  const [coins] = useState(500)
 
   useEffect(() => {
     if (WebApp.initDataUnsafe.user && typeof window !== "undefined" && typeof window !== undefined) {
