@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Zap } from "lucide-react"
 import Image from 'next/image'
-import prisma from '@/lib/prisma'
 
 interface UserData {
   id: number
@@ -57,28 +56,15 @@ export default function Home() {
 
   const createOrUpdateUser = async (userData: UserData) => {
     try {
-      const user = await prisma.user.upsert({
-        where: { chatId: userData.id.toString() },
-        update: {
-          firstName: userData.first_name,
-          lastName: userData.last_name,
-          username: userData.username,
-          isNew: false,
-          role: 'USER'  
-        },
-        create: {
-          chatId: userData.id.toString(),
-          firstName: userData.first_name,
-          lastName: userData.last_name,
-          username: userData.username,
-          isNew: true,
-          role: 'USER'
-        }
+      const response = await fetch('/api/users', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(userData)
       })
-      console.log('User created:', user)
-     } catch (error) {
+      if (!response.ok) throw new Error('Failed to save user')
+    } catch (error) {
       console.error('Error:', error)
-     }
+    }
   }
 
   useEffect(() => {
