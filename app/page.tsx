@@ -53,6 +53,60 @@ export default function Home() {
             <p className="text-sm text-muted-foreground mt-2">100/500</p>
           </CardContent>
         </Card>
+        <Card className="w-full mb-4">
+          <CardHeader>
+            <CardTitle>Пофигистика</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Progress value={20} className="w-full" />
+            <p className="text-sm text-muted-foreground mt-2">100/500</p>
+          </CardContent>
+        </Card>
+        <Card className="w-full mb-4">
+          <CardHeader>
+            <CardTitle>Математический анализ</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Progress value={20} className="w-full" />
+            <p className="text-sm text-muted-foreground mt-2">100/500</p>
+          </CardContent>
+        </Card>
+        <Card className="w-full mb-4">
+          <CardHeader>
+            <CardTitle>Алгебра</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Progress value={20} className="w-full" />
+            <p className="text-sm text-muted-foreground mt-2">100/500</p>
+          </CardContent>
+        </Card>
+        <Card className="w-full mb-4">
+          <CardHeader>
+            <CardTitle>Алгебра</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Progress value={20} className="w-full" />
+            <p className="text-sm text-muted-foreground mt-2">100/500</p>
+          </CardContent>
+        </Card>
+        <Card className="w-full mb-4">
+          <CardHeader>
+            <CardTitle>Алгебра</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Progress value={20} className="w-full" />
+            <p className="text-sm text-muted-foreground mt-2">100/500</p>
+          </CardContent>
+        </Card>
+        <Card className="w-full mb-4">
+          <CardHeader>
+            <CardTitle>Алгебра</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <Progress value={20} className="w-full" />
+            <p className="text-sm text-muted-foreground mt-2">100/500</p>
+          </CardContent>
+        </Card>
         {userData ? (
           <div className="space-y-4">
             <Card>
