@@ -1,4 +1,5 @@
 'use client'
+
 import { useState, useEffect } from "react"
 import WebApp from "@twa-dev/sdk"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -15,10 +16,28 @@ interface UserData {
   is_premium?: boolean
 }
 
+interface Subject {
+  id: number
+  name: string
+  progress: number
+  total: number
+}
+
 export default function Home() {
   const [userData, setUserData] = useState<UserData | null>(null)
   const [energy] = useState(100)
   const [coins] = useState(500)
+  const [activeCard, setActiveCard] = useState<number | null>(null)
+
+  const subjects: Subject[] = [
+    { id: 1, name: "Тригонометрия", progress: 100, total: 500 },
+    { id: 2, name: "Пофигистика", progress: 100, total: 500 },
+    { id: 3, name: "Математический анализ", progress: 100, total: 500 },
+    { id: 4, name: "Алгебра", progress: 100, total: 500 },
+    { id: 5, name: "Геометрия", progress: 100, total: 500 },
+    { id: 6, name: "Статистика", progress: 100, total: 500 },
+    { id: 7, name: "Дискретная математика", progress: 100, total: 500 },
+  ]
 
   useEffect(() => {
     // Force dark theme
@@ -28,6 +47,10 @@ export default function Home() {
       setUserData(WebApp.initDataUnsafe.user as UserData)
     }
   }, [])
+
+  const handleCardClick = (id: number) => {
+    setActiveCard(activeCard === id ? null : id)
+  }
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground dark">
@@ -44,69 +67,26 @@ export default function Home() {
         </div>
       </header>
       <main className="p-4 flex-grow">
-        <Card className="w-full mb-4">
-          <CardHeader>
-            <CardTitle>Тригонометрия</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Progress value={20} className="w-full" />
-            <p className="text-sm text-muted-foreground mt-2">100/500</p>
-          </CardContent>
-        </Card>
-        <Card className="w-full mb-4">
-          <CardHeader>
-            <CardTitle>Пофигистика</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Progress value={20} className="w-full" />
-            <p className="text-sm text-muted-foreground mt-2">100/500</p>
-          </CardContent>
-        </Card>
-        <Card className="w-full mb-4">
-          <CardHeader>
-            <CardTitle>Математический анализ</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Progress value={20} className="w-full" />
-            <p className="text-sm text-muted-foreground mt-2">100/500</p>
-          </CardContent>
-        </Card>
-        <Card className="w-full mb-4">
-          <CardHeader>
-            <CardTitle>Алгебра</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Progress value={20} className="w-full" />
-            <p className="text-sm text-muted-foreground mt-2">100/500</p>
-          </CardContent>
-        </Card>
-        <Card className="w-full mb-4">
-          <CardHeader>
-            <CardTitle>Алгебра</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Progress value={20} className="w-full" />
-            <p className="text-sm text-muted-foreground mt-2">100/500</p>
-          </CardContent>
-        </Card>
-        <Card className="w-full mb-4">
-          <CardHeader>
-            <CardTitle>Алгебра</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Progress value={20} className="w-full" />
-            <p className="text-sm text-muted-foreground mt-2">100/500</p>
-          </CardContent>
-        </Card>
-        <Card className="w-full mb-4">
-          <CardHeader>
-            <CardTitle>Алгебра</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Progress value={20} className="w-full" />
-            <p className="text-sm text-muted-foreground mt-2">100/500</p>
-          </CardContent>
-        </Card>
+        {subjects.map((subject) => (
+          <Card 
+            key={subject.id} 
+            className={`w-full mb-4 transition-all duration-300 ease-in-out cursor-pointer
+              ${activeCard === subject.id ? 'ring-2 ring-primary scale-105' : 'hover:shadow-lg hover:scale-[1.02]'}
+            `}
+            style={{
+              transform: activeCard === subject.id ? 'translateY(-4px)' : 'none',
+            }}
+            onClick={() => handleCardClick(subject.id)}
+          >
+            <CardHeader>
+              <CardTitle>{subject.name}</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Progress value={(subject.progress / subject.total) * 100} className="w-full" />
+              <p className="text-sm text-muted-foreground mt-2">{subject.progress}/{subject.total}</p>
+            </CardContent>
+          </Card>
+        ))}
         {userData ? (
           <div className="space-y-4">
             <Card>
