@@ -1,5 +1,4 @@
 "use client";
-import { useState,useEffect } from 'react';
 import * as React from 'react';
 import Map from 'react-map-gl';
 
