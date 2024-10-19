@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 import useNavigation from '../hook/use-navigation';
 import useScrollingEffect from '../hook/use-scroll';
-import { User, Search, Infinity, House } from "lucide-react";
 import { Icon } from '@iconify/react';
 
 const BottomNav = () => {
@@ -17,7 +16,8 @@ const BottomNav = () => {
     isHomeActive,
     isExploreActive,
     isNotificationsActive,
-    isMessagesActive,
+    isProfileActive,
+    isMapActive,
   } = useNavigation();
 
   return (
@@ -27,11 +27,10 @@ const BottomNav = () => {
       <div className="flex flex-row justify-around items-center bg-transparent w-full">
         <Link href="/" className="flex items-center relative">
           {isHomeActive ? (
-            <Icon icon="mingcute:home-5-fill" width="32" height="32" />
+            <Icon icon="mdi:learn-outline" width="32" height="32" className="stroke-current stroke-505" />
           ) : (
-            <Icon icon="mingcute:home-5-line" width="32" height="32" />
+            <Icon icon="mdi:learn-outline" width="32" height="32" />
           )}
-          {/* <span className="h-2 w-2 rounded-full bg-sky-500 absolute -top-0.5 right-[3px]"></span> */}
         </Link>
         <Link href="/search" className="flex items-center">
           {isExploreActive ? (
@@ -45,6 +44,13 @@ const BottomNav = () => {
             <Icon icon="uil:search" width="32" height="32" />
           )}
         </Link>
+        <Link href="/map" className="flex items-center">
+          {isMapActive ? (
+            <Icon icon="mdi:map-outline" width="32" height="32" className="stroke-current stroke-5" />
+          ) : (
+            <Icon icon="mdi:map-outline" width="32" height="32" />
+          )}
+        </Link>
         <Link href="/loops" className="flex items-center">
           {isNotificationsActive ? (
             <Icon icon="ri:infinity-fill" width="32" height="32" className="stroke-current stroke-5" />
@@ -53,10 +59,10 @@ const BottomNav = () => {
           )}
         </Link>
         <Link href="/profile" className="flex items-center">
-          {isMessagesActive ? (
-            <Icon icon="ic:baseline-email" width="32" height="32" />
+          {isProfileActive ? (
+            <Icon icon="iconamoon:profile-fill" width="32" height="32"/>
           ) : (
-            <Icon icon="ic:outline-email" width="32" height="32" />
+            <Icon icon="iconamoon:profile-duotone" width="32" height="32" />
           )}
         </Link>
       </div>

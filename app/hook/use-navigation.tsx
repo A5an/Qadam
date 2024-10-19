@@ -9,13 +9,16 @@ const useNavigation = () => {
   const [isHomeActive, setIsHomeActive] = useState(false);
   const [isExploreActive, setIsExploreActive] = useState(false);
   const [isNotificationsActive, setIsNotificationsActive] = useState(false);
-  const [isMessagesActive, setIsMessagesActive] = useState(false);
+  const [isProfileActive, setIsProfileActive] = useState(false);
+  const [isMapActive, setIsMapActive] = useState(false);
+
 
   useEffect(() => {
     setIsHomeActive(false);
     setIsExploreActive(false);
     setIsNotificationsActive(false);
-    setIsMessagesActive(false);
+    setIsProfileActive(false);
+    setIsMapActive(false);
 
     switch (pathname) {
       case '/':
@@ -28,7 +31,10 @@ const useNavigation = () => {
         setIsNotificationsActive(true);
         break;
       case '/profile':
-        setIsMessagesActive(true);
+        setIsProfileActive(true);
+        break;
+      case '/map':
+        setIsMapActive(true);
         break;
       default:
         // Handle any other cases here
@@ -40,7 +46,8 @@ const useNavigation = () => {
     isHomeActive,
     isExploreActive,
     isNotificationsActive,
-    isMessagesActive,
+    isProfileActive,
+    isMapActive,
   };
 };
 
