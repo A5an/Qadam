@@ -39,3 +39,52 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  /* Red variant */
+  .progress-red {
+    @apply bg-red-950/50;
+  }
+  .progress-red > div {
+    @apply bg-red-500;
+  }
+
+  /* Orange variant */
+  .progress-orange {
+    @apply bg-orange-950/50;
+  }
+  .progress-orange > div {
+    @apply bg-orange-500;
+  }
+
+  /* Yellow variant */
+  .progress-yellow {
+    @apply bg-yellow-950/50;
+  }
+  .progress-yellow > div {
+    @apply bg-yellow-500;
+  }
+
+  /* Blue variant */
+  .progress-blue {
+    @apply bg-blue-950/50;
+  }
+  .progress-blue > div {
+    @apply bg-blue-500;
+  }
+
+  .progress-lime {
+    @apply bg-lime-950/50;
+  }
+  .progress-lime > div {
+    @apply bg-lime-500;
+  }
+
+  /* Green variant */
+  .progress-green {
+    @apply bg-green-950/50;
+  }
+  .progress-green > div {
+    @apply bg-green-500;
+  }
+}
