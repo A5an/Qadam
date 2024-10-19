@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Zap } from "lucide-react"
 import Image from 'next/image'
-import prisma from '@/lib/prisma'
 
 interface UserData {
   id: number
