@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Progress } from "@/components/ui/progress"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Zap } from "lucide-react"
+import { Zap, Plus } from "lucide-react"
 import Image from 'next/image'
 
 interface UserData {
@@ -32,6 +32,11 @@ const getProgressClass = (percentage: number): string => {
 }
 
 export default function Home() {
+
+  const handleCreateCourse = () => {
+    router.push('/create-course')
+  }
+
 
   const router = useRouter()
   const [userData, setUserData] = useState<UserData | null>(null)
@@ -104,6 +109,16 @@ export default function Home() {
   </div>
       </header>
       <main className="p-4 flex-grow">
+      <Card 
+          className="w-full mb-6 cursor-pointer hover:shadow-lg hover:scale-[1.02] transition-all duration-300 ease-in-out"
+          onClick={handleCreateCourse}
+        >
+          <CardContent className="flex flex-col items-center justify-center py-8">
+            <Plus className="w-12 h-12 mb-2 text-primary" />
+            <p className="text-lg font-semibold">Создать курс</p>
+          </CardContent>
+        </Card>
+        
         {subjects.map((subject) => {
           const percentage = (subject.progress / subject.total) * 100
           const progressClass = getProgressClass(percentage)
