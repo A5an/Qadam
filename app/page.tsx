@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Zap } from "lucide-react"
 import Image from 'next/image'
+import prisma from '@/lib/prisma'
 
 interface UserData {
   id: number
@@ -54,6 +55,38 @@ export default function Home() {
     router.push(`/subjects/${id}?name=${encodeURIComponent(name)}`)
   }
 
+  const createOrUpdateUser = async (userData: UserData) => {
+    try {
+      const user = await prisma.user.upsert({
+        where: { id: userData.id.toString() },
+        update: {
+          firstName: userData.first_name,
+          lastName: userData.last_name,
+          username: userData.username,
+          // We don't have email in UserData, so we'll use username as a placeholder
+          email: userData.username ? `${userData.username}@example.com` : undefined,
+          // Set other fields as needed
+          isNew: false,
+          role: 'USER' as const,
+          // You might want to set level, tokens, etc. based on your app's logic
+        },
+        create: {
+          id: userData.id.toString(),
+          firstName: userData.first_name,
+          lastName: userData.last_name,
+          username: userData.username,
+          email: userData.username ? `${userData.username}@example.com` : undefined,
+          isNew: true,
+          role: 'USER' as const,
+          // Set other fields as needed
+        },
+      })
+      console.log('User created or updated:', user)
+    } catch (error) {
+      console.error('Error creating or updating user:', error)
+    }
+  }
+
   useEffect(() => {
     document.documentElement.classList.add('dark')
      
@@ -61,7 +94,9 @@ export default function Home() {
       if (typeof window !== "undefined") {
         const WebApp = (await import('@twa-dev/sdk')).default
         if (WebApp.initDataUnsafe.user) {
-          setUserData(WebApp.initDataUnsafe.user as UserData)
+          const user = WebApp.initDataUnsafe.user as UserData
+          setUserData(user)
+          await createOrUpdateUser(user)
         }
       }
     }
