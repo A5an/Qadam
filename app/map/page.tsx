@@ -23,15 +23,15 @@ function MapPage() {
   return (
     <div className="min-h-screen flex flex-col bg-background text-foreground dark">
       <header className="p-4 flex justify-between items-center">
-        <h1 className="text-xl font-bold">Knowledge Drops</h1>
+        <h1 className="text-l font-bold">Knowledge Drops</h1>
         <div className="flex space-x-2 items-center">
-    <div className=" mt-3 flex items-center">
+    <div className=" flex items-center">
       <Button variant="outline" size="default">
       <Image src="/coin.png" alt="Coin" width={24} height={24} className="mr-2" />
         {coins}
       </Button>
     </div>
-    <div className=" mt-3 flex items-center">
+    <div className=" flex items-center">
     <Button variant="outline" size="default">
       <Zap className="w-4 h-4 mr-2" />
       {energy}
