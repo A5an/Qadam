@@ -59,6 +59,9 @@ export default function Home() {
     router.push(`/subjects/${id}?name=${encodeURIComponent(name)}`)
   }
 
+  const handleShopClick = () => {
+    router.push('/shop')
+  }
   const createOrUpdateUser = async (userData: UserData) => {
     try {
       const response = await fetch('/api/users', {
@@ -95,7 +98,7 @@ export default function Home() {
         <h1 className="text-xl font-bold">Ваше обучение</h1>
         <div className="flex space-x-2 items-center">
     <div className=" flex items-center">
-      <Button variant="outline" size="default">
+      <Button variant="outline" size="default" onClick={handleShopClick}>
       <Image src="/coin.png" alt="Coin" width={24} height={24} className="mr-2" />
         {coins}
       </Button>
