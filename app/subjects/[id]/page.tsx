@@ -1,15 +1,13 @@
 'use client' 
  
-import { useParams, useSearchParams } from 'next/navigation' 
+import { useSearchParams } from 'next/navigation' 
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card" 
 import { Button } from "@/components/ui/button" 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs" 
 import Link from 'next/link' 
  
 export default function SubjectPage() { 
-  const params = useParams() 
   const searchParams = useSearchParams() 
-  const subjectId = params.id 
   const subjectName = searchParams.get('name') 
  
   return ( 
