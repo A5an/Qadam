@@ -23,20 +23,24 @@ export default function Home() {
 }, []);
 
   return (
-    <>
-    <main className="p-4">
+    <div className="min-h-screen flex flex-col">
+    <main className="p-4 flex-grow">
       {
         userData ? (
           <>
+          <div className="flex pt-4 pb-20 flex-grow">
           <h1 className="text-2x1 font-bold mb-4">User Data</h1>
+          </div>
           </>
         ) : (
           <>
+          <div className="flex pt-4 pb-20 flex-grow">
           <h1 className="text-2x1 font-bold mb-4">User</h1>
+          </div>
           </>
         )
       }
     </main>
-    </>
+    </div>
   );
 }
