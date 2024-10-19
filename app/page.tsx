@@ -5,6 +5,7 @@ import { Progress } from "@/components/ui/progress"
 import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Zap } from "lucide-react"
+import Image from 'next/image'
 
 interface UserData {
   id: number
@@ -73,15 +74,20 @@ export default function Home() {
     <div className="min-h-screen flex flex-col bg-background text-foreground dark">
       <header className="p-4 flex justify-between items-center">
         <h1 className="text-2xl font-bold">Ваше обучение</h1>
-        <div className="flex space-x-2">
-          <Button variant="outline" size="sm">
-            {coins}
-          </Button>
-          <Button variant="outline" size="sm">
-            <Zap className="w-4 h-4 mr-2" />
-            {energy}
-          </Button>
-        </div>
+        <div className="flex space-x-2 items-center">
+    <div className=" mt-3 flex items-center">
+      <Button variant="outline" size="default">
+      <Image src="/coin.png" alt="Coin" width={24} height={24} className="mr-2" />
+        {coins}
+      </Button>
+    </div>
+    <div className=" mt-3 flex items-center">
+    <Button variant="outline" size="default">
+      <Zap className="w-4 h-4 mr-2" />
+      {energy}
+    </Button>
+    </div>
+  </div>
       </header>
       <main className="p-4 flex-grow">
         {subjects.map((subject) => {
