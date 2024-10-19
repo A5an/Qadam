@@ -11,6 +11,19 @@ import {
 import "leaflet/dist/leaflet.css";
 import React, { useState, useEffect } from "react";
 import L from "leaflet";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogPortal,
+  DialogContent,
+  DialogTitle,
+  DialogDescription,
+  DialogClose,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import toast from "react-hot-toast";
+import Image from "next/image";
 
 const orangeLeast = new L.Icon({
   iconUrl: "/orange.png",
@@ -70,16 +83,33 @@ function getRandomCoordinates(
 }
 
 function getRandomIcon() {
-  const icons = [orangeLeast, greenUpper, purpleDown, greyBest];
+  const icons = [
+    { icon: orangeLeast, rarity: "common", prize: 3, imageUrl: "/orange.png" },
+    { icon: greenUpper, rarity: "uncommon", prize: 5, imageUrl: "/green.png" },
+    { icon: purpleDown, rarity: "rare", prize: 7, imageUrl: "/purple.png" },
+    { icon: greyBest, rarity: "legendary", prize: 10, imageUrl: "/grey.png" },
+  ];
   const randomIndex = Math.floor(Math.random() * icons.length);
   return icons[randomIndex];
 }
 
 function Map() {
   const [position, setPosition] = useState<[number, number] | null>(null);
-  const [randomMarkers, setRandomMarkers] = useState<{ position: [number, number], icon: L.Icon }[]>([]);
+  const [randomMarkers, setRandomMarkers] = useState<{ position: [number, number], icon: L.Icon, rarity: string, prize: number, imageUrl: string }[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedMarker, setSelectedMarker] = useState<number | null>(null);
+  const [mathTask, setMathTask] = useState<{ question: string, answer: number } | null>(null);
+  const [userAnswer, setUserAnswer] = useState<string>('');
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
+  const generateMathTask = () => {
+    const num1 = Math.floor(Math.random() * 10) + 1;
+    const num2 = Math.floor(Math.random() * 10) + 1;
+    return {
+      question: `${num1} + ${num2}`,
+      answer: num1 + num2
+    };
+  };
 
   const FlyToLocation = ({ position }: { position: [number, number] }) => {
     const map = useMap();
@@ -93,12 +123,27 @@ function Map() {
 
   const openModal = (index: number) => {
     setSelectedMarker(index);
+    setMathTask(generateMathTask());
+    setUserAnswer('');
+    setIsSuccess(false);
     setModalIsOpen(true);
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
     setSelectedMarker(null);
+  };
+
+  const handleSubmit = () => {
+    if (mathTask && parseInt(userAnswer) === mathTask.answer) {
+      setIsSuccess(true);
+      setTimeout(() => {
+        setModalIsOpen(false);
+        setSelectedMarker(null);
+      }, 2000); // Close the modal after 2 seconds
+    } else {
+      alert("Не правельно! Попробуйте еще раз.");
+    }
   };
 
   useEffect(() => {
@@ -109,9 +154,9 @@ function Map() {
           const userPosition: [number, number] = [latitude, longitude];
           setPosition(userPosition);
 
-          const markers = Array.from({ length: 123 }, () => ({
+          const markers = Array.from({ length: 67 }, () => ({
             position: getRandomCoordinates(userPosition, 5000),
-            icon: getRandomIcon()
+            ...getRandomIcon()
           }));
           setRandomMarkers(markers);
         },
@@ -156,10 +201,14 @@ function Map() {
                   }}
                 />
                 {randomMarkers.map((marker, index) => (
-                  <Marker key={index} position={marker.position} icon={marker.icon}>
-                    <Popup>
-                      Random marker {index + 1}
-                    </Popup>
+                  <Marker
+                    key={index}
+                    position={marker.position}
+                    icon={marker.icon}
+                    eventHandlers={{
+                      click: () => openModal(index),
+                    }}
+                  >
                   </Marker>
                 ))}
               </>
@@ -167,6 +216,46 @@ function Map() {
           </MapContainer>
         </div>
       </main>
+    <Dialog open={modalIsOpen} onOpenChange={setModalIsOpen}>
+      <DialogPortal>
+        <div style={{ margin: '0 20px', width: '400px' }}> 
+          <DialogContent>
+            <DialogTitle>Marker Details</DialogTitle>
+            {selectedMarker !== null && (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center' }}>
+          {mathTask && (
+            <>
+            <Image style={{marginTop: 10, marginBottom: 10}} src={randomMarkers[selectedMarker].imageUrl} alt="Marker Image" width={200} height={200}  />
+            <p style={{fontSize: 24}}>Rarity: {randomMarkers[selectedMarker].rarity}</p>
+            <p style={{fontSize: 24}}>Prize: {randomMarkers[selectedMarker].prize} coins</p>
+            <p style={{fontSize: 18}}>Solve this task to proceed: {mathTask.question}</p>
+              <Input
+                type="text"
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                disabled={isSuccess}
+                style={{ width: '100%', padding: '8px', margin: '8px 0' }} // Add consistent styles
+              />
+              <Button
+                onClick={handleSubmit}
+                disabled={isSuccess}
+                variant="default"
+                style={{ width: '100%', marginTop: '8px', borderRadius: '8px' }} // Add consistent styles
+              >
+                Submit
+              </Button>
+              {isSuccess && <p style={{ color: 'green' }}>Success!</p>}
+            </>
+          )}
+        </div>
+      )}
+            <DialogClose asChild>
+              <Button style={{ borderRadius: '8px' }} variant="outline" onClick={closeModal}>Close</Button>
+            </DialogClose>
+          </DialogContent>
+        </div>
+      </DialogPortal>
+    </Dialog>
     </div>
   );
 }
