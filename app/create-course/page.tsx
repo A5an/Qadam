@@ -26,9 +26,6 @@ export default function CreateCourse() {
       setError("Описание не должно превышать 150 слов")
       return
     }
-
-    // Здесь можно добавить логику сохранения курса
-    
     router.push('/')
   }
 
