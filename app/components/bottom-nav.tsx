@@ -51,7 +51,12 @@ const BottomNav = () => {
             <Icon icon="mdi:map-outline" width="32" height="32" />
           )}
         </Link>
-        <Link href="/loops" className="flex items-center">
+        <Link onClick={(e) => {
+            e.preventDefault(); // Prevent the default link behavior
+            window.location.href = "/loops/1"; // Force the page to reload
+          }}
+          href="/loops/1" 
+          className="flex items-center">
           {isNotificationsActive ? (
             <Icon icon="ri:infinity-fill" width="32" height="32" className="stroke-current stroke-5" />
           ) : (
