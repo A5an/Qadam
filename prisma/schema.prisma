@@ -19,9 +19,7 @@ model User {
   username      String?
   firstName     String?
   lastName      String?
-  qadamcoin     Int?
-  energy        Int?
-  completedpracteces    Int?
+  tokens        String?
   level         Int?            @default(0)
   isNew         Boolean?        @default(true)
   role          UserRole        @default(USER)
